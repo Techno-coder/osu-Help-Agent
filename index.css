@@ -1,0 +1,16 @@
+.agent-tag {
+    color: lavenderblush;
+    margin-right: 2px;
+    padding: 0 4px;
+    border: 1px solid transparent;
+    border-radius: 1em;
+}
+
+.agent-tag-loader {
+    color: grey;
+}
+
+.agent-tag, .agent-tag-loader {
+    font-size: 10px;
+    line-height: 14px;
+}
