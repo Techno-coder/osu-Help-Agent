@@ -54,7 +54,7 @@ async function load(entry) {
 	loader.textContent = "loading";
 	title.after(loader);
 
-	let content = await pageContent(link, date);
+	let content = title.innerText + await pageContent(link, date);
 	let filter = (([_, matcher]) => matcher.test(content));
 	let tags = TAGS.filter(filter).map(([tag, _]) => tag);
 	tags.length = Math.min(tags.length, TAG_THRESHOLD);

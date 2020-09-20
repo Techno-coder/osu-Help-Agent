@@ -18,6 +18,9 @@ const TAGS = tags({
 		"fps",
 		"stutter",
 		"stutters",
+		"stuttering",
+		"freeze",
+		"freezing",
 		"frame",
 		"frames",
 		"framerate",
@@ -32,7 +35,7 @@ const TAGS = tags({
 	"McOsu": ["McOsu"],
 	"editor": [
 		"editor",
-		"editing",
+		"mapping",
 	],
 	"compatibility": ["compatibility"],
 	"tablet": [
@@ -40,16 +43,31 @@ const TAGS = tags({
 		"hawku",
 	],
 	"taiko": ["taiko"],
+	"mania": ["mania"],
 	"supporter": ["supporter"],
 	"crash": [
 		"crash",
 		"crashes",
 		"exception",
+		"closes",
 		"BSOD",
 	],
 	"error": [
 		"error",
 		"glitch",
+	],
+	"discord": ["discord"],
+	"linux": [
+		"linux",
+		"ubuntu",
+		"arch",
+		"mint",
+	],
+	"account": ["account"],
+	"installation": [
+		"install",
+		"installing",
+		"installation",
 	]
 });
 
