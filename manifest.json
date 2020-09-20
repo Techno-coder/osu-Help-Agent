@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "osu! Help Agent",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Adds tools for managing topics in the osu! help forum.",
   "icons": {
 	"48": "icons/icon.svg",
@@ -10,21 +10,17 @@
   "content_scripts": [
 	{
 	  "matches": [
-		"https://osu.ppy.sh/community/forums/5*",
-		"https://osu.ppy.sh/community/forums/29*"
+		"https://osu.ppy.sh/*"
 	  ],
 	  "js": [
-		"browser-polyfill.min.js",
-		"tags.js",
-		"index.js"
+		"external/browser-polyfill.min.js",
+		"src/tags.js",
+		"src/index.js"
 	  ],
 	  "css": [
-		"index.css"
+		"src/index.css"
 	  ]
 	}
-  ],
-  "web_accessible_resources": [
-	"tags.json"
   ],
   "permissions": [
 	"storage"

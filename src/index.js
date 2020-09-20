@@ -2,6 +2,12 @@ const EXPIRED = "EPOCH_EXPIRY";
 const REQUEST_DELAY = 1000;
 const TAG_THRESHOLD = 8;
 
+const PATHS = [
+	"/community/forums/5",
+	"/community/forums/29",
+	"/community/forums/101",
+];
+
 let currentAddress = window.location.href;
 let requestCount = 0;
 let loadEpoch = 0;
@@ -75,6 +81,7 @@ function stringColor(string) {
 }
 
 function loadAll() {
+	if (!PATHS.includes(window.location.pathname)) return;
 	document.querySelectorAll("[class^=agent-tag]")
 		.forEach((node) => node.remove());
 
@@ -88,6 +95,7 @@ function loadAll() {
 }
 
 let observer = new MutationObserver((mutations) => {
+	console.log(mutations);
 	let after = (event) =>
 		event.nextSibling?.outerHTML?.includes("favicon") ||
 		event.previousSibling?.outerHTML?.includes("favicon");
