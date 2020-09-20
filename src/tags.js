@@ -25,7 +25,14 @@ const TAGS = tags({
 		"frames",
 		"framerate",
 	],
-	"skins": ["skin"],
+	"skins": [
+		"skin",
+		"skins",
+		"skinning",
+		"UI",
+		"interface",
+		"Interface",
+	],
 	"score": [
 		"score",
 		"scores",
