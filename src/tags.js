@@ -15,12 +15,15 @@ const TAGS = tags({
 	"performance": [
 		"lag",
 		"lags",
-		"fps",
+		"spike",
+		"spiking",
 		"stutter",
 		"stutters",
 		"stuttering",
 		"freeze",
+		"freezes",
 		"freezing",
+		"fps",
 		"frame",
 		"frames",
 		"framerate",
@@ -33,6 +36,7 @@ const TAGS = tags({
 		"rankings",
 	],
 	"McOsu": ["McOsu"],
+	"OBS": ["OBS"],
 	"editor": [
 		"editor",
 		"mapping",
@@ -47,9 +51,13 @@ const TAGS = tags({
 	"supporter": ["supporter"],
 	"crash": [
 		"crash",
+		"crashed",
 		"crashes",
 		"exception",
+		"closed",
 		"closes",
+		"bluescreen",
+		"blue screen",
 		"BSOD",
 	],
 	"error": [
@@ -68,6 +76,18 @@ const TAGS = tags({
 		"install",
 		"installing",
 		"installation",
+	],
+	"audio": [
+		"audio",
+		"sound",
+	],
+	"igpu": [
+		"icd",
+		"intel",
+	],
+	"Bancho": [
+		"Bancho",
+		"server",
 	]
 });
 
