@@ -2,14 +2,6 @@ const EXPIRED = "EPOCH_EXPIRY";
 const REQUEST_DELAY = 1000;
 const TAG_THRESHOLD = 8;
 
-const PATHS = [
-	"/community/forums/2"
-	"/community/forums/5",
-	"/community/forums/29",
-	"/community/forums/101",
-];
-
-let currentAddress = window.location.href;
 let requestCount = 0;
 let loadEpoch = 0;
 
@@ -45,7 +37,7 @@ async function pageContent(link, date) {
 	return content;
 }
 
-async function load(entry) {
+async function load(enabled, entry) {
 	let date = entry.querySelector("time").dateTime;
 	let title = entry.querySelector(".forum-topic-entry__title");
 	let link = title.getAttribute("href");
@@ -67,28 +59,38 @@ async function load(entry) {
 	loader.remove();
 	tags.forEach((name) => {
 		let tag = document.createElement("span");
-		tag.style.backgroundColor = stringColor(name);
+		tag.style.backgroundColor = tagColor(enabled, name);
 		tag.classList.add("agent-tag");
 		tag.textContent = name;
 		title.after(tag);
 	});
 }
 
-function stringColor(string) {
+function tagColor(enabled, string) {
+	if (!enabled.hasOwnProperty(string))
+		return "rgba(0, 0, 0, 0.1)";
+
 	let hash = 0;
 	for (let character of string)
 		hash = character.charCodeAt(0) + ((hash << 5) - hash);
 	return `hsl(${hash % 360}, 100%, 40%)`;
 }
 
-function loadAll() {
-	if (!PATHS.includes(window.location.pathname)) return;
+async function loadAll() {
+	let enabled = await browser.storage.sync.get();
+	if (!enabled.hasOwnProperty(window.location.pathname)) return;
 	document.querySelectorAll("[class^=agent-tag]")
 		.forEach((node) => node.remove());
 
+	let execute = (entry) => load(enabled, entry);
 	let entries = document.querySelectorAll(".forum-topic-entry");
-	Promise.all(Array.from(entries).map(load)).catch((error) => {
-		if (error.message !== EXPIRED) console.error(error);
+	await Promise.all(Array.from(entries).map(execute));
+}
+
+function runLoad() {
+	loadAll().catch((error) => {
+		if (error.message !== EXPIRED)
+			console.error(error);
 	});
 
 	requestCount = 0;
@@ -96,17 +98,13 @@ function loadAll() {
 }
 
 let observer = new MutationObserver((mutations) => {
-	console.log(mutations);
-	let after = (event) =>
-		event.nextSibling?.outerHTML?.includes("favicon") ||
-		event.previousSibling?.outerHTML?.includes("favicon");
-
-	if (!mutations.some(after)) return;
-	if (window.location.href === currentAddress) return;
-	currentAddress = window.location.href;
-	loadAll();
+	let valid = (mutation) =>
+		mutation.nextSibling?.outerHTML?.includes("favicon") ||
+		mutation.previousSibling?.outerHTML?.includes("favicon");
+	if (!mutations.some(valid)) return;
+	runLoad();
 });
 
 let selector = document.querySelector("head");
 observer.observe(selector, {childList: true});
-loadAll();
+runLoad();

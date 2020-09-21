@@ -1,3 +1,10 @@
+const PATHS = {
+	"Help": "/community/forums/5",
+	"Resolved": "/community/forums/29",
+	"Confirmed": "/community/forums/101",
+	"Development": "/community/forums/2",
+};
+
 const TAGS = tags({
 	"macOS": [
 		"OSX",
@@ -103,4 +110,16 @@ function tags(object) {
 	let expression = (([tag, keys]) =>
 		[tag, new RegExp(`\\b(${keys.join("|")})\\b`, "i")])
 	return entries.map(expression);
+}
+
+function setEnabled(key, enabled) {
+	let result = enabled ?
+		browser.storage.sync.set({[key]: true}) :
+		browser.storage.sync.remove(key);
+	result.catch(console.error);
+}
+
+async function isEnabled(key) {
+	let enabled = browser.storage.sync.get({[key]: false});
+	return (await enabled)[key];
 }
