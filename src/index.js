@@ -3,6 +3,7 @@ const REQUEST_DELAY = 1000;
 const TAG_THRESHOLD = 8;
 
 const PATHS = [
+	"/community/forums/2"
 	"/community/forums/5",
 	"/community/forums/29",
 	"/community/forums/101",
